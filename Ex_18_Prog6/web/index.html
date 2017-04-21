@@ -1,3 +1,29 @@
+<!--
+Aryadne Mayuri Silva		ProgVI		7° período	Sistemas de Informação
+
+Atividades 12.2 e 20.3
+
+12.2 - Passar a String vidade para int vidade. Por que dá erro? Citar e implementar uma forma de contornar esta situação?
+
+R: 
+Porque está pegando dados do HTML que envia em formato de texto.
+Uma forma de resolver isso seria transformar o resultado recebido em inteiro com o Integer.parseInt().
+Exemplo:
+	
+String vnome;
+int vidade;
+vnome = request.getParameter("nome");
+vidade = Integer.parseInt(request.getParameter("idade"));
+out.println("Nome: " + vnome + " ; Idade: " + vidade);
+
+
+2- Pesquisar o que fazem: TYPE_SCROLL_SENSITIVE e CONCUR_READ_ONLY;
+R: 
+TYPE_SCROLL_SENSITIVE = com este parâmetro o ResultSet indica que o scroll será sensível a mudanças feitas por outras transações ou por outros Statements da mesma transação.
+CONCUR_READ_ONLY = com este parâmetro o ResultSet indica que ficará no modo somente leitura.
+-->
+
+
 <!doctype html>
 <html>
     <head>
