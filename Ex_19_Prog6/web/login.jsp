@@ -8,34 +8,33 @@
     </head>
 
 
-    <%
-        try {
+  <%
+            try {
+                // carregar o driver jdbc (java/jre/lib/ext)
+                Class.forName("org.postgresql.Driver");
+                out.println("Consegui carregar driver ");
+                Connection con = DriverManager.getConnection("jdbc:postgresql://localhost/banco_de_dados_faesp",
+                        "postgres", "postgres");
+                out.println("Consegui conectar com sucesso ");
 
-            // carregar o driver jdbc (java/jre/lib/ext)
-            Class.forName("org.postgresql.Driver");
-            out.println("Consegui carregar driver");
-            Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/banco_de_dados_faesp", "postgres", "postgres");
-            out.println("Consegui conectar com sucesso");
+                Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                //out.println("statement ok");
+                ResultSet rs = st.executeQuery("SELECT * FROM LOGIN WHERE LOG_USUARIO = '"
+                        + request.getParameter("nome") + "' AND LOG_SENHA = '" + request.getParameter("senha") + "'");
+                // caso o SELECT retorne somente 1 row
 
-            Statement st = con.createStatement();
-            out.println("statement ok");
+                if (rs.next()) {
+                    response.sendRedirect("principal.jsp");
+                } else {
+                    out.println("Nome ou senha incorretos!");
+                }
 
-            ResultSet rs = st.executeQuery("SELECT * FROM LOGIN");
-            out.println("resultset ok");
-            //20.2: o erro que aparece é:
-            //Erro de conexao com o banco: org.postgresql.util.PSQLException: 
-            //Operação requer um ResultSet rolável, mas este ResultSet é FORWARD_ONLY (somente para frente)
-            rs.first();
-            out.println("usuario=" + rs.getString("log_usuario"));
-
-        } catch (ClassNotFoundException erroClass) {
-            out.println("Nao achei a Classe do Driver JDBC, erro: " + erroClass);
-        } catch (SQLException erroSQL) {
-            out.println("Erro de conexao com o banco: " + erroSQL);
-        }
-
-
-    %>
+            } catch (ClassNotFoundException erroClass) {
+                out.println("Nao achei a Classe do Driver JDBC, erro: " + erroClass);
+            } catch (SQLException erroSQL) {
+                out.println("Erro de conexao com o banco: " + erroSQL);
+            }
+        %>
 
     <img src="faesp.png">
     <form method="POST" action="">

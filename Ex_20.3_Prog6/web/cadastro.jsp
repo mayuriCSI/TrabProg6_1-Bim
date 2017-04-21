@@ -6,7 +6,7 @@
         <title>Logins</title>
     </head>
     <body>
-        <p><img src="faesp.png">
+        <p><img src="faesp.jpg">
             <br>
             <strong><u>Manutenção da base de logins</u></strong></p>
         <p><a href="cadUsuario.jsp?">NOVO REGISTRO</a></p>
