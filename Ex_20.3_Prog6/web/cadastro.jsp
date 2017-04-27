@@ -29,7 +29,7 @@
                         out.println("Consegui carregar driver ");
                         Connection con = DriverManager.getConnection("jdbc:postgresql://localhost/banco_de_dados_faesp",
                                 "postgres", "postgres");
-                        Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                        Statement st = con.createStatement();
 
                         if (request.getParameter("acao") != null) //
                         {

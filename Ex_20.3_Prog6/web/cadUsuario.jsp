@@ -12,64 +12,63 @@
         %>
 
         <form id="formInserirUsuario" name="frmCadastrar" method="post" action="cadUsuario.jsp?acao=gravar">
-            <!--  <label>Código:
+            <label>Código:
                   <input name="tf_log_codigo" type="text" id="tf_log_codigo" size="20" abled="abled"/>
               </label>
-              <p>-->
+              <p>
             <label>Login:
                 <input name="tf_log_usuario" type="text" id="tf_log_usuario" size="20" maxlength="20" />
             </label>
             <label>Senha:
                 <input name="tf_log_senha" type="password" id="tf_log_senha" size="20" maxlength="20" />
             </label>
-        
-        <p>
-            <label>Nível:
-                <input name="tf_log_nivel" type="text" id="tf_log_nivel" size="5" maxlength="1" />
-            </label>
-        </p>
-        <p>
-            <label>
-                <input type="submit" name="Gravar" id="gravar" value="gravar" />
-            </label>
-            <label></label>
-            <input type="reset" name="Limpar" id="Limpar" value="Limpar" />
-        </p>
-    </form>
 
-    <%
-        } else {
+            <p>
+                <label>Nível:
+                    <input name="tf_log_nivel" type="text" id="tf_log_nivel" size="5" maxlength="1" />
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="submit" name="Gravar" id="gravar" value="gravar" />
+                </label>
+                <label></label>
+                <input type="reset" name="Limpar" id="Limpar" value="Limpar" />
+            </p>
+        </form>
 
-            try {
-                // carregar o driver jdbc (java/jre/lib/ext)
-                Class.forName("org.postgresql.Driver");
-                out.println("Consegui carregar driver ");
-                Connection con = DriverManager.getConnection("jdbc:postgresql://localhost/banco_de_dados_faesp",
-                        "postgres", "postgres");
-                out.println("conexao ao BD!");
+        <%
+            } else {
 
-                Statement st = con.createStatement();
+                try {
+                    // carregar o driver jdbc (java/jre/lib/ext)
+                    Class.forName("org.postgresql.Driver");
+                    out.println("Consegui carregar driver ");
+                    Connection con = DriverManager.getConnection("jdbc:postgresql://localhost/banco_de_dados_faesp",
+                            "postgres", "postgres");
+                    out.println("conexao ao BD!");
 
-                // if (request.getParameter("tf_log_codigo").length() == 0) {
-                //   response.sendRedirect("cadUsuario.jsp");
-                // } else 
-                if (request.getParameter("tf_log_usuario").length() == 0) {
-                    response.sendRedirect("cadUsuario.jsp");
-                } else if (request.getParameter("tf_log_senha").length() == 0) {
-                    response.sendRedirect("cadUsuario.jsp");
-                } else if (request.getParameter("tf_log_nivel").length() == 0) {
-                    response.sendRedirect("cadUsuario.jsp");
-                } else {
-                    st.executeUpdate("INSERT INTO LOGIN (log_codigo, log_usuario, log_senha, log_nivel) VALUES ( default,'" + request.getParameter("tf_log_usuario") + "','" + request.getParameter("tf_log_senha")
-                            + "'," + Integer.parseInt(request.getParameter("tf_log_nivel")) + ")");
+                    Statement st = con.createStatement();
+
+                    if (request.getParameter("tf_log_codigo").length() == 0) {
+                        response.sendRedirect("cadUsuario.jsp");
+                    } else if (request.getParameter("tf_log_usuario").length() == 0) {
+                        response.sendRedirect("cadUsuario.jsp");
+                    } else if (request.getParameter("tf_log_senha").length() == 0) {
+                        response.sendRedirect("cadUsuario.jsp");
+                    } else if (request.getParameter("tf_log_nivel").length() == 0) {
+                        response.sendRedirect("cadUsuario.jsp");
+                    } else {
+                        st.executeUpdate("INSERT INTO LOGIN (log_codigo, log_usuario, log_senha, log_nivel) VALUES (" + request.getParameter("tf_log_codigo") + ",'" + request.getParameter("tf_log_usuario") + "','" + request.getParameter("tf_log_senha")
+                                + "'," + Integer.parseInt(request.getParameter("tf_log_nivel")) + ")");
+                    }
+                } catch (ClassNotFoundException erroClass) {
+                    out.println("Nao achei a Classe do Driver JDBC, erro: " + erroClass);
+                } catch (SQLException erroSQL) {
+                    out.println("Erro de conexao com o banco: " + erroSQL);
                 }
-            } catch (ClassNotFoundException erroClass) {
-                out.println("Nao achei a Classe do Driver JDBC, erro: " + erroClass);
-            } catch (SQLException erroSQL) {
-                out.println("Erro de conexao com o banco: " + erroSQL);
-            }
 
-        }
-    %>
-</body>
+            }
+        %>
+    </body>
 </html>

@@ -8,6 +8,7 @@
     <body>
         <img src="faesp.jpg" style="width:100px; height:100px">
         <form method="POST" action="principal.jsp">
+            Nome <input type="text" name="codigo" size="40">
             Nome <input type="text" name="nome" size="40">
             </br>
             </br>
@@ -30,7 +31,7 @@
                 Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
                 //out.println("statement ok");
                 ResultSet rs = st.executeQuery("SELECT * FROM LOGIN WHERE LOG_USUARIO = '"
-                        + request.getParameter("nome") + "' AND LOG_SENHA = '" + request.getParameter("senha") + "'");
+                        + request.getParameter("nome") + "' AND LOG_SENHA = '" + request.getParameter("idade") + "'");
                 // caso o SELECT retorne somente 1 row
 
                 if (rs.next()) {
